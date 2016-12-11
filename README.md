@@ -1,3 +1,7 @@
+WARNING - THIS IS MY OWN PREZTO CONFIG
+The original repository can be found here:
+https://github.com/sorin-ionescu/prezto
+
 Prezto — Instantly Awesome Zsh
 ==============================
 

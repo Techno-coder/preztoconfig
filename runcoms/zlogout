@@ -9,10 +9,16 @@
 [[ -o INTERACTIVE && -t 2 ]] && {
 
 # Print the message.
-cat <<-EOF
+#cat <<-EOF
 
+<<<<<<< HEAD
 Thank you. Come again!
   -- Dr. Apu Nahasapeemapetilon
 EOF
 
 } >&2
+=======
+#Thank you. Come again!
+#  -- Dr. Apu Nahasapeemapetilon
+#EOF
+>>>>>>> Stuff
