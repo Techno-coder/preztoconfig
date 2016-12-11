@@ -11,3 +11,24 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+alias vim=nvim
+alias oldvim=vim
+export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# Easy Markdown to Html Function
+function markdown() {
+    if [[ $# -eq 0 ]]; then
+        echo "Markdown: markdown file is undefined"
+        return 1;
+    elif ls $1 1> /dev/null 2>&1; then
+        pandoc -s -o $1.html $1
+        return 0;
+    else
+        echo "Markdown: markdown file is undefined"
+        return 1
+    fi
+}
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

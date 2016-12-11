@@ -1,0 +1,61 @@
+#
+# A theme based on Honukai ported to zsh and personalised by Techno using Steeef
+#
+
+function prompt_steeef_precmd {
+  # Check for untracked files or updated submodules since vcs_info does not.
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    branch_format="${_prompt_steeef_colors[1]}on git:%F{33}%b%f%u%c "
+  else
+    branch_format="on git:%F{33}%b%f%u%c "
+  fi
+
+  zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
+
+  vcs_info 'prompt'
+}
+
+function prompt_steeef_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  # Add hook for calling vcs_info before each command.
+  add-zsh-hook precmd prompt_steeef_precmd
+
+  # Formats:
+  #   %b - branchname
+  #   %u - unstagedstr (see below)
+  #   %c - stagedstr (see below)
+  #   %a - action (e.g. rebase-i)
+  #   %R - repository path
+  #   %S - path in the repository
+  local branch_format="(%b%f%u%c)"
+  local action_format="(%a%f)"
+  local unstaged_format="%F{red} x%f"
+  local staged_format=""
+
+  local exit_code='%(?.%F{green}.%F{red})'
+  local returncode="%(?..with%F{red} %? %F{resetcolor})"
+
+  # Set vcs_info parameters.
+  zstyle ':vcs_info:*' enable bzr git hg svn
+  zstyle ':vcs_info:*:prompt:*' check-for-changes true
+  zstyle ':vcs_info:*:prompt:*' unstagedstr "${unstaged_format}"
+  zstyle ':vcs_info:*:prompt:*' stagedstr "${staged_format}"
+  zstyle ':vcs_info:*:prompt:*' actionformats "${branch_format}${action_format}"
+  zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
+  zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
+
+  # Define prompts
+  PROMPT="
+%F{19}# %F{33}%n%f at %F{34}%m%f in %F{226}%~%f "'${vcs_info_msg_0_}'"${returncode}since %F{130}[%*] 
+${exit_code}→ %F{reset_color}"
+  RPROMPT=''
+}
+
+prompt_steeef_setup "$@"
