@@ -14,6 +14,8 @@ fi
 alias vim=nvim
 alias oldvim=vim
 export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+export EDITOR=nvim
+export HOMEBREW_EDITOR=nvim
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
@@ -32,3 +34,5 @@ function markdown() {
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
