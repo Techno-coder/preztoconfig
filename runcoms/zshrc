@@ -33,6 +33,22 @@ function markdown() {
     fi
 }
 
+# Play music :D
+function pmusic() {
+    if [[ $# -eq 0 ]]; then
+        echo "Play Music: music file is undefined"
+        return 1;
+    else
+        play $1 -q repeat - & kill -TSTP %play
+        bg %play
+    fi
+}
+
+# You gotta stop the music eventually right?
+function smusic() {
+    killall play
+}
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
