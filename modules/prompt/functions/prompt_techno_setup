@@ -13,6 +13,16 @@ function prompt_steeef_precmd {
   zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
 
   vcs_info 'prompt'
+
+  PROMPT="
+%F{19}# %F{33}%n%f at %F{34}%m%f in %F{226}%~%f "'${vcs_info_msg_0_}'"${returncode}since %F{130}[%*] 
+${exit_code}→ %F{reset_color}"
+
+  if [[ $COLUMNS -lt 100 ]]; then
+      PROMPT="
+%F{19}# %F{33}%n%f at %F{34}%m%f in %F{226}%~%f "'${vcs_info_msg_0_}'"${returncode}
+${exit_code}→ %F{reset_color}"
+  fi
 }
 
 function prompt_steeef_setup {
@@ -56,6 +66,12 @@ function prompt_steeef_setup {
 %F{19}# %F{33}%n%f at %F{34}%m%f in %F{226}%~%f "'${vcs_info_msg_0_}'"${returncode}since %F{130}[%*] 
 ${exit_code}→ %F{reset_color}"
   RPROMPT=''
+
+  if [[ $COLUMNS -lt 100 ]]; then
+      PROMPT="
+%F{19}# %F{33}%n%f at %F{34}%m%f in %F{226}%~%f "'${vcs_info_msg_0_}'"${returncode}
+${exit_code}→ %F{reset_color}"
+  fi
 }
 
 prompt_steeef_setup "$@"
