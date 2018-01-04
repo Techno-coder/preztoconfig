@@ -10,12 +10,22 @@ fi
 # Customize to your needs...
 alias vim=nvim
 alias oldvim="command vim"
-alias cvim="command vim -u ~/Documents/Code/CPlusPlus/NZIC/plain_vimrc -N"
+alias cvim="command vim -u ~/.plain_vimrc -N"
+alias ssh="ssh -x -C"
+
 export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
 export EDITOR=nvim
 export HOMEBREW_EDITOR=nvim
+export THOR_ROOT="~/ExDocuments/Libraries/Thor"
+export SCALA_HOME="/usr/local/opt/scala/idea"
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+export GOPATH="$HOME/Documents/Code/Go/"
+
+export PATH=$PATH:/usr/local/opt/ruby/bin
+export PATH=$PATH:$GOPATH/bin
+export PATH="$PATH:/usr/local/opt/llvm/bin"
 
 # Easy Markdown to Html Function
 function markdown() {
@@ -93,3 +103,13 @@ my-expand-abbrev() {
 zle -N my-expand-abbrev
 bindkey "k" my-expand-abbrev
 bindkey -M isearch "k" self-insert
+
+# Energy Save Mode
+function energySave() {
+	killall WacomTabletDriver
+	killall "Boom 2"
+	killall TabletDriver
+	killall Discord
+	killall jetbrains-toolbox
+	killall "Android File Transfer Agent"
+}
